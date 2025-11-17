@@ -1,0 +1,107 @@
+/* Pastikan body dan html menggunakan tinggi penuh untuk tampilan mobile */
+body, #root {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+}
+
+.login-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* Memberikan latar belakang gradasi seperti pada gambar */
+    background: linear-gradient(to bottom, #d6f2f2 0%, #a2e8e8 100%);
+    padding: 20px;
+    min-height: 100vh; /* Memastikan memenuhi seluruh layar */
+}
+
+/* Ilustrasi Atas */
+.header-illustration {
+    width: 100%;
+    height: 250px; /* Sesuaikan tinggi sesuai proporsi gambar Anda */
+    /* Untuk meniru gambar, gunakan background-image jika Anda menggunakan CSS, atau biarkan tag <img>/komponen React yang menanganinya */
+    /* background-color: lightgray; */
+    margin-bottom: 30px; 
+    /* Dalam kode nyata, Anda akan memastikan gambar Anda memiliki properti yang sama */
+}
+
+/* Icon Gelembung Tengah */
+.center-icon {
+    margin-bottom: 40px;
+}
+
+.bubble-placeholder {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background-color: white; /* Warna gelembung */
+    border: 3px solid #ccc;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Form Styling */
+.login-form {
+    width: 100%;
+    max-width: 350px; /* Batasi lebar pada layar yang lebih besar */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.input-field {
+    width: 100%;
+    padding: 15px;
+    margin-bottom: 15px;
+    border: none;
+    border-radius: 30px; /* Radius tinggi untuk bentuk oval */
+    font-size: 16px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center; /* Teks input di tengah */
+}
+
+/* Tombol Login */
+.login-button {
+    width: 100%;
+    padding: 15px;
+    margin-top: 20px;
+    background-color: #4ab7b7; /* Warna biru-hijau yang dominan */
+    color: white;
+    border: none;
+    border-radius: 30px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s;
+}
+
+.login-button:hover {
+    background-color: #3aa6a6;
+}
+
+/* Teks Tautan */
+.forgot-password-link {
+    width: 100%;
+    max-width: 350px;
+    text-align: right;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+.forgot-password-link a {
+    color: #4ab7b7;
+    text-decoration: none;
+}
+
+/* Prompt Sign Up */
+.signup-prompt {
+    margin-top: 20px;
+    font-size: 16px;
+    color: #333;
+}
+
+.signup-link {
+    color: #4ab7b7;
+    font-weight: bold;
+    text-decoration: none;
+}

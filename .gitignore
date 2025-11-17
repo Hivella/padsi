@@ -1,0 +1,19 @@
+# File Kredensial (HARUS diabaikan)
+.env
+connection string.txt
+
+# Folder/File yang dihasilkan oleh Node.js dan NPM
+node_modules/
+npm-debug.log
+npm-debug.*
+*.log
+
+# Folder Build / Dist (jika ada)
+dist/
+build/
+
+# Generated Files
+/generated/prisma
+
+# OS files
+.DS_Store

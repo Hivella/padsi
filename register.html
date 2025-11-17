@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - Laundry App</title>
+    <link rel="stylesheet" href="style.css"> 
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="scale-container"> 
+        <div class="Login"> 
+            
+            <div class="background-elements">
+                </div>
+            
+            <form id="register-form">
+                
+                <!-- INPUT BARU: Nama Lengkap -->
+                <div class="input_filed field-name" style="top: 328px;">
+                    <input type="text" id="name" placeholder="Masukkan nama lengkap" required>
+                </div>
+
+                <!-- INPUT DIUBAH: Email -->
+                <div class="input_filed field-email" style="top: 380px;">
+                    <input type="email" id="email" placeholder="Masukkan email" required>
+                </div>
+
+                <!-- INPUT DIUBAH: Password -->
+                <div class="input_filed field-password" style="top: 432px;">
+                    <input type="password" id="password" placeholder="Masukkan password" required>
+                </div>
+                
+                <!-- Tombol ini menjadi SIGN UP -->
+                <div class="Button" style="top: 550px;">
+                    <button type="submit" class="button-text">Sign Up</button>
+                </div>
+            </form>
+
+            <div class="signup-footer" style="top: 610px;">
+                <span class="signup-text">Already have an account? </span>
+                <a href="login.html" class="btn-signup">Login</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Logika Scaling (sama seperti login.html)
+        function applyScaling() {
+            const designWidth = 400;
+            const designHeight = 800;
+            const viewportWidth = window.innerWidth;
+            const viewportHeight = window.innerHeight;
+            
+            const scaleFactor = Math.min(viewportWidth / designWidth, viewportHeight / designHeight);
+            
+            document.documentElement.style.setProperty('--scale', scaleFactor);
+            
+            const container = document.querySelector('.scale-container');
+            container.style.width = `${designWidth * scaleFactor}px`;
+            container.style.height = `${designHeight * scaleFactor}px`;
+        }
+        applyScaling();
+        window.addEventListener('resize', applyScaling);
+    </script>
+    <script src="register.js"></script>
+</body>
+</html>
