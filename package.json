@@ -11,7 +11,8 @@
     "migrate": "dotenv -- npx prisma migrate dev",
     "reset": "dotenv -- npx prisma migrate reset",
     "generate": "dotenv -- npx prisma generate",
-    "start": "node server.js"
+    "start": "node server.js",
+    "build": "prisma generate" 
   },
   "dependencies": {
     "@prisma/client": "^6.19.0",
