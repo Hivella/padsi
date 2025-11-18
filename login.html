@@ -4,59 +4,100 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Laundry App</title>
-    <link rel="stylesheet" href="/style.css"> 
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* CSS Internal untuk Tampilan Minimalis */
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #ADD8E6; /* Latar Belakang Biru Muda */
+            font-family: 'Poppins', sans-serif;
+            overflow: auto;
+        }
+        .Login {
+            background: #FFFFFF;
+            padding: 20px 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 300px; /* Ukuran yang lebih wajar untuk form */
+        }
+        .input_filed {
+            margin-bottom: 15px;
+        }
+        .input_filed input {
+            width: calc(100% - 20px); /* Menyesuaikan dengan padding */
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .forget-password-text {
+            display: block;
+            margin-top: -5px;
+            margin-bottom: 20px;
+            color: #50C2C9;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        .Button {
+            margin-top: 20px;
+        }
+        .button-text {
+            width: 100%;
+            padding: 12px;
+            background-color: #50C2C9;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: 600;
+        }
+        .button-text:hover {
+            background-color: #40B1B8;
+        }
+        .signup-footer {
+            margin-top: 25px;
+            font-size: 16px;
+            color: #000000;
+        }
+        .btn-signup {
+            color: #50C2C9;
+            text-decoration: none;
+            font-weight: 600;
+        }
+    </style>
 </head>
 <body>
-    <div class="scale-container"> 
-        <div class="Login"> 
-            
-            <div class="background-elements">
-                </div>
-            
-            <form id="login-form">
-                <div class="input_filed field-username">
-                    <input type="text" id="username" placeholder="Masukkan username" required>
-                </div>
-
-                <div class="input_filed field-password">
-                    <input type="password" id="password" placeholder="Masukkan password" required>
-                </div>
-
-                <a href="#" class="forget-password-text">Forget password ?</a>
-                
-                <div class="Button">
-                    <button type="submit" class="button-text">Login</button>
-                </div>
-            </form>
-
-            <div class="signup-footer">
-                <span class="signup-text">Don't have an account ? </span>
-                <a href="/register.html" class="btn-signup">Sign Up</a>
+    <div class="Login"> 
+        <form id="login-form">
+            <div class="input_filed field-username">
+                <input type="text" id="username" placeholder="Masukkan username" required>
             </div>
+
+            <div class="input_filed field-password">
+                <input type="password" id="password" placeholder="Masukkan password" required>
+            </div>
+
+            <a href="#" class="forget-password-text">Forget password ?</a>
+            
+            <div class="Button">
+                <button type="submit" class="button-text">Login</button>
+            </div>
+        </form>
+
+        <div class="signup-footer">
+            <span class="signup-text">Don't have an account ? </span>
+            <a href="/register.html" class="btn-signup">Sign Up</a>
         </div>
     </div>
 
-    <script>
-        function applyScaling() {
-            const designWidth = 400;
-            const designHeight = 800;
-            const viewportWidth = window.innerWidth;
-            const viewportHeight = window.innerHeight;
-            
-            const scaleFactor = Math.min(viewportWidth / designWidth, viewportHeight / designHeight);
-            
-            document.documentElement.style.setProperty('--scale', scaleFactor);
-            
-            const container = document.querySelector('.scale-container');
-            container.style.width = `${designWidth * scaleFactor}px`;
-            container.style.height = `${designHeight * scaleFactor}px`;
-        }
-
-        applyScaling();
-        window.addEventListener('resize', applyScaling);
-    </script>
-    
     <script src="/login-script.js"></script>
 </body>
 </html>
