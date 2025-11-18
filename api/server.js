@@ -1,4 +1,4 @@
-// api/server.js (Final Fix: Menambahkan Route untuk register.html)
+// api/server.js (FINAL FIX: Menambahkan Route Eksplisit untuk File JS)
 
 // --- A. DEKLARASI & IMPORT ---
 const express = require('express');
@@ -29,23 +29,29 @@ app.use(express.static(rootDir, {
 
 
 // --- D. DEFINISI ROUTE ---
-// 1. Rute Halaman Utama: Express akan menyajikan login.html sebagai respons terhadap /
+// 1. Rute Halaman Utama & HTML Statis
 app.get('/', (req, res) => {
     res.sendFile(path.join(rootDir, 'login.html'));
 });
 
-// 2. Rute Register (BARU DITAMBAHKAN)
-// Merespons GET /register.html (atau rute lain yang mengarah ke form registrasi)
 app.get('/register.html', (req, res) => {
     res.sendFile(path.join(rootDir, 'register.html'));
 });
 
-// 3. Rute Dashboard (Blank Page)
 app.get('/blank.html', (req, res) => {
     res.sendFile(path.join(rootDir, 'blank.html'));
 });
 
-// 4. Rute API
+// 2. Rute Eksplisit untuk File JAVASCRIPT (PERBAIKAN 404)
+app.get('/register.js', (req, res) => {
+    res.sendFile(path.join(rootDir, 'register.js'));
+});
+
+app.get('/login-script.js', (req, res) => {
+    res.sendFile(path.join(rootDir, 'login-script.js'));
+});
+
+// 3. Rute API
 app.use('/auth', authRoutes);
 app.use('/users', userRoutes);
 app.use('/projects', projectRoutes);
@@ -56,4 +62,4 @@ app.listen(PORT, () => {
     console.log(`Server berjalan di http://localhost:${PORT}`);
 });
 
-module.exports = app; // Export app untuk Vercel
+module.exports = app;
