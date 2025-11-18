@@ -4,10 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register - Laundry App</title>
+    
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 
     <style>
-        /* CSS Internal untuk Tampilan Minimalis (Register) */
+        /* Variabel CSS & FONT */
+        :root {
+            --secondary-color: #50C2C9; /* Warna Teal untuk tombol/link */
+            --background-teal: #E0F7F9; /* Warna teal muda (Background.png) */
+            --text-color: #000000;
+            --scale: 1; 
+            --design-width: 400px;
+            --design-height: 800px;
+        }
+
+        /* --- RESET & BODY --- */
         body {
             margin: 0;
             padding: 0;
@@ -15,84 +26,206 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            background-color: #ADD8E6; /* Latar Belakang Biru Muda */
+            background-color: #f0f0f0; 
             font-family: 'Poppins', sans-serif;
-            overflow: auto;
+            overflow: hidden; 
         }
-        .Login { /* Menggunakan kelas .Login yang sama untuk konsistensi */
-            background: #FFFFFF;
-            padding: 20px 30px;
-            border-radius: 8px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            width: 300px; /* Ukuran yang lebih wajar untuk form */
+
+        /* --- KONTROL SKALA RESPONSIVE --- */
+        .scale-container {
+            max-width: 100vw; 
+            max-height: 100vh;
+            aspect-ratio: 1 / 2; 
+            position: relative;
+            overflow: hidden;
+            background-color: var(--background-teal); 
         }
+
+        /* CONTAINER UTAMA (400x800) */
+        .Login {
+            position: absolute; 
+            width: var(--design-width);
+            height: var(--design-height);
+            background: transparent;
+            transform: scale(var(--scale)); 
+            transform-origin: top left;
+        }
+
+        /* --- BACKGROUND ELEMEN --- */
+        .illustration-placeholder {
+            position: absolute;
+            width: 100%;
+            height: 350px; 
+            background-color: var(--background-teal); 
+            z-index: 2;
+        }
+
+        .bubble-placeholder {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            top: 300px; 
+            background-color: white;
+            border-radius: 50%;
+            border: 4px solid #fff;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            z-index: 10; 
+        }
+
+        /* --- INPUT FIELDS & FORM --- */
+        .form-container {
+            position: relative; 
+            width: 100%;
+            height: 100%;
+            z-index: 5;
+        }
+
         .input_filed {
-            margin-bottom: 15px;
+            position: absolute;
+            width: 330px;
+            height: 38px;
+            left: 35px;
+            z-index: 5;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
+
+        /* Posisi Register (3 input: Name, Email, Password) */
+        .field-name { top: 454px; }
+        .field-email { top: 506px; }
+        .field-password { top: 558px; }
+
         .input_filed input {
-            width: calc(100% - 20px); /* Menyesuaikan dengan padding */
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 16px;
+            width: 100%;
+            height: 100%;
+            background: #FFFFFF;
+            border: none;
+            border-radius: 100px;
+            box-sizing: border-box;
+            padding: 0 25px; 
+            text-align: left; 
+            font-family: 'Poppins';
+            font-weight: 400;
+            font-size: 13px;
+            line-height: 38px;
+            color: rgba(0, 0, 0, 0.7);
         }
+        .input_filed input::placeholder {
+            color: rgba(0, 0, 0, 0.5); 
+            font-family: 'Poppins';
+            font-weight: 400;
+        }
+
+        /* --- TOMBOL SIGN UP (Button) --- */
         .Button {
-            margin-top: 20px;
+            position: absolute;
+            width: 330px;
+            height: 45px;
+            left: 35px;
+            top: 665px; 
+            z-index: 5;
         }
+
         .button-text {
             width: 100%;
-            padding: 12px;
-            background-color: #50C2C9;
-            color: white;
+            height: 100%;
+            background: var(--secondary-color);
             border: none;
             border-radius: 8px;
             cursor: pointer;
+            
+            font-family: 'Poppins';
+            font-weight: 600;
             font-size: 18px;
-            font-weight: 600;
+            line-height: 45px; 
+            text-align: center;
+            color: #FFFFFF;
         }
-        .button-text:hover {
-            background-color: #40B1B8;
-        }
+
+        /* --- FOOTER --- */
         .signup-footer {
-            margin-top: 25px;
-            font-size: 16px;
-            color: #000000;
+            position: absolute;
+            width: 225px;
+            height: 19px;
+            left: 88px;
+            top: 725px; 
+            text-align: center;
+            z-index: 5;
         }
+
+        .signup-text {
+            font-family: 'Poppins';
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 157%;
+            color: var(--text-color);
+        }
+
         .btn-signup {
-            color: #50C2C9;
-            text-decoration: none;
+            font-family: 'Poppins';
             font-weight: 600;
+            color: var(--secondary-color); 
+            text-decoration: none;
+            font-size: 16px;
         }
     </style>
 </head>
 <body>
-    <div class="Login"> 
-        <form id="register-form">
+    <div class="scale-container"> 
+        <div class="Login"> 
             
-            <div class="input_filed field-name">
-                <input type="text" id="name" placeholder="Masukkan nama lengkap" required>
-            </div>
+            <div class="illustration-placeholder"></div>
+            <div class="bubble-placeholder"></div>
             
-            <div class="input_filed field-email">
-                <input type="email" id="email" placeholder="Masukkan email" required>
-            </div>
-            
-            <div class="input_filed field-password"> 
-                <input type="password" id="password" placeholder="Masukkan password" required>
-            </div>
-            
-            <div class="Button">
-                <button type="submit" class="button-text">Sign Up</button>
-            </div>
-        </form>
+            <div class="form-container">
+                <form id="register-form">
+                    <div class="input_filed field-name">
+                        <input type="text" id="name" placeholder="Masukkan nama lengkap" required>
+                    </div>
+                    
+                    <div class="input_filed field-email">
+                        <input type="email" id="email" placeholder="Masukkan email" required>
+                    </div>
+                    
+                    <div class="input_filed field-password"> 
+                        <input type="password" id="password" placeholder="Masukkan password" required>
+                    </div>
+                    
+                    <div class="Button">
+                        <button type="submit" class="button-text">Sign Up</button>
+                    </div>
+                </form>
 
-        <div class="signup-footer">
-            <span class="signup-text">Already have an account? </span>
-            <a href="/login.html" class="btn-signup">Login</a>
+                <div class="signup-footer">
+                    <span class="signup-text">Already have an account? </span>
+                    <a href="/login.html" class="btn-signup">Login</a>
+                </div>
+            </div>
+            
         </div>
     </div>
 
+    <script>
+        function applyScaling() {
+            const designWidth = 400;
+            const designHeight = 800;
+            const viewportWidth = window.innerWidth;
+            const viewportHeight = window.innerHeight;
+            
+            const scaleFactor = Math.min(viewportWidth / designWidth, viewportHeight / designHeight);
+            
+            document.documentElement.style.setProperty('--scale', scaleFactor);
+            
+            const container = document.querySelector('.scale-container');
+            container.style.width = `${designWidth * scaleFactor}px`;
+            container.style.height = `${designHeight * scaleFactor}px`;
+        }
+
+        applyScaling();
+        window.addEventListener('resize', applyScaling);
+    </script>
+    
     <script src="/register.js"></script>
 </body>
 </html>
