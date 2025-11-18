@@ -1,4 +1,4 @@
-/* style.css (Final: Menghapus Notifikasi Bar dan Visual Anchor) */
+/* style.css (Final: Disesuaikan dengan desain baru) */
 
 /* --- Variabel CSS & FONT --- */
 :root {
@@ -66,15 +66,13 @@ body {
     z-index: 5;
 }
 
-/* POSISI BARU (DIGESER KE ATAS) */
+/* POSISI BARU (sesuai spek desain baru) */
 .field-username {
-    /* Posisi awal 506px. Kita naikkan ke 380px untuk mengisi ruang kosong */
-    top: 380px; 
+    top: 506px; 
 }
 
 .field-password {
-    /* Posisi kedua (380 + 38 input + 14 margin) */
-    top: 432px; 
+    top: 558px; 
 }
 
 .input_filed input {
@@ -84,22 +82,36 @@ body {
     border: none;
     border-radius: 100px;
     box-sizing: border-box;
-    padding: 0 20px;
-    text-align: left;
+    padding: 0 25px; /* Disesuaikan agar placeholder terlihat */
+    text-align: left; /* Sesuai spek, bukan 'center' */
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
     font-size: 13px;
     line-height: 38px;
     color: rgba(0, 0, 0, 0.7);
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
 }
 
+.input_filed input::placeholder {
+     color: rgba(0, 0, 0, 0.5); /* Warna placeholder dari spek */
+     font-family: 'Poppins';
+     font-weight: 400;
+}
+
+
 /* --- FORGET PASSWORD --- */
 .forget-password-text {
     position: absolute;
-    left: calc(50% - 129px/2); 
-    /* Posisi baru setelah input kedua */
-    top: 488px; 
     width: 129px;
+    height: 14px;
+    left: calc(50% - 129px/2 + 0.5px);
+    top: 608px; /* Posisi baru */
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
     font-size: 13px;
+    line-height: 20px;
     text-align: center;
     color: var(--secondary-color);
     text-decoration: none;
@@ -112,8 +124,7 @@ body {
     width: 330px;
     height: 45px;
     left: 35px;
-    /* Posisi baru */
-    top: 550px; 
+    top: 665px; /* Posisi baru */
     z-index: 5;
 }
 
@@ -125,9 +136,11 @@ body {
     border-radius: 8px;
     cursor: pointer;
     
+    font-family: 'Poppins';
+    font-style: normal;
     font-weight: 600;
     font-size: 18px;
-    line-height: 45px;
+    line-height: 157%;
     text-align: center;
     color: #FFFFFF;
 }
@@ -138,18 +151,23 @@ body {
     width: 225px;
     height: 19px;
     left: 88px;
-    /* Posisi baru */
-    top: 610px; 
+    top: 725px; /* Posisi baru */
     text-align: center;
     z-index: 5;
 }
 
 .signup-text {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
     font-size: 16px;
+    line-height: 157%;
     color: var(--text-color);
 }
 
 .btn-signup {
+    font-family: 'Poppins';
+    font-style: normal;
     font-weight: 600;
     color: var(--secondary-color); 
     text-decoration: none;

@@ -13,19 +13,12 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
-
-
-
-
-
-
-
 model User {
-  id    Int     @id @default(autoincrement()) // Kunci utama, akan auto-increment
-  email String  @unique // Email harus unik
-  name  String? // Opsional
-  projects Project[] // Relasi: Satu User dapat memiliki banyak Project
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  name      String?
+  password  String   // <--- PASTIKAN BARIS INI ADA
+  projects  Project[]
 }
 
 model Project {

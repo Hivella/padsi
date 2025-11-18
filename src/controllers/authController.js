@@ -1,7 +1,7 @@
 // src/controllers/authController.js
 
 const prisma = require('../db/prisma');
-// Untuk keamanan, Anda akan menggunakan library seperti 'bcrypt' untuk membandingkan password
+const bcrypt = require('bcryptjs'); // <--- 1. IMPORT BCRYPTJS
 
 exports.login = async (req, res) => {
     const { username, password } = req.body;
@@ -14,19 +14,20 @@ exports.login = async (req, res) => {
         // 1. Cari user di database berdasarkan email
         const user = await prisma.user.findUnique({
             where: { email: username },
-            // Dalam kasus nyata, kita akan mengambil password hash di sini
         });
 
         if (!user) {
             // User tidak ditemukan (Email salah)
+            // JANGAN beri tahu emailnya yang salah, tetap bilang "Kredensial tidak valid"
             return res.status(401).json({ error: 'Kredensial tidak valid (Email/Password salah).' });
         }
         
-        // 2. MOCK PASSWORD CHECK (Hanya untuk tujuan pengujian cepat)
-        // ASUMSI: Kita hanya cek jika password yang dikirim BUKAN '123456'
-        // Anda harus mengganti ini dengan Bcrypt.compare()
-        if (password !== '123456') { 
-            // Jika password salah (Dalam nyata: Bcrypt.compare akan gagal)
+        // 2. BANDINGKAN PASSWORD (YANG ASLI)
+        // Kita bandingkan password yang diinput (password) dengan hash di database (user.password)
+        const isMatch = await bcrypt.compare(password, user.password);
+
+        if (!isMatch) {
+            // Jika password salah
             return res.status(401).json({ error: 'Kredensial tidak valid (Email/Password salah).' });
         }
 
@@ -51,22 +52,24 @@ exports.register = async (req, res) => {
     }
 
     try {
-        // 1. Hash Password (Wajib di aplikasi nyata)
-        // const hashedPassword = await bcrypt.hash(password, 10);
-        // Untuk tujuan pengujian awal, kita langsung menyimpan password:
+        // 1. HASH PASSWORD (Wajib)
+        // Kita "menggarami" (salt) passwordnya agar lebih aman
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(password, salt);
+
+        // 2. Siapkan data untuk disimpan
         const userData = {
             email: email,
             name: name,
-            // Dalam aplikasi nyata, Anda akan menyimpan hashedPassword, bukan password mentah
-            // password: hashedPassword, 
+            password: hashedPassword, // <--- 2. SIMPAN PASSWORD YANG SUDAH DI-HASH
         };
 
-        // 2. Buat User Baru di Database Neon
+        // 3. Buat User Baru di Database Neon
         const newUser = await prisma.user.create({
             data: userData,
         });
 
-        // 3. Respon Sukses
+        // 4. Respon Sukses (Jangan kirim password kembali)
         res.status(201).json({ 
             message: 'Registrasi berhasil!', 
             userId: newUser.id,

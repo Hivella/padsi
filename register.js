@@ -1,7 +1,7 @@
 // register.js
 
 // Alamat endpoint registrasi Anda
-const REGISTER_ENDPOINT = 'http://localhost:3000/auth/register'; 
+const REGISTER_ENDPOINT = '/auth/register'; 
 
 const form = document.getElementById('register-form');
 const nameInput = document.getElementById('name');
