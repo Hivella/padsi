@@ -1,13 +1,13 @@
-// server.js (UTAMA & BERSIH)
+// api/server.js (FINAL & KOREKSI PATH)
 
 // --- A. DEKLARASI & IMPORT ---
 const express = require('express');
 const cors = require('cors');
 
-// Import SEMUA route
-const userRoutes = require('./src/routes/userRoutes'); 
-const projectRoutes = require('./src/routes/projectRoutes'); 
-const authRoutes = require('./src/routes/authRoutes'); 
+// PATH DIUBAH: DARI './src/routes' MENJADI '../src/routes'
+const userRoutes = require('../src/routes/userRoutes'); 
+const projectRoutes = require('./../src/routes/projectRoutes'); 
+const authRoutes = require('../src/routes/authRoutes'); 
 require('dotenv').config(); 
 
 const app = express();
@@ -16,21 +16,18 @@ const PORT = process.env.PORT || 3000;
 
 // --- B. MIDDLEWARE GLOBAL ---
 app.use(cors());
-app.use(express.json()); // Mengizinkan server membaca body JSON
+app.use(express.json());
 
 
 // --- C. DEFINISI ROUTE ---
 app.get('/', (req, res) => {
+    // Pesan ini hanya untuk tes koneksi fungsi
     res.send('API Express.js Berjalan!'); 
 });
 
-// 1. Rute untuk Manajemen User (CRUD)
+// Rute API
 app.use('/users', userRoutes); 
-
-// 2. Rute untuk Manajemen Project (CRUD)
 app.use('/projects', projectRoutes);
-
-// 3. Rute untuk Otentikasi (Login/Signup)
 app.use('/auth', authRoutes);
 
 
