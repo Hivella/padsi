@@ -1,6 +1,5 @@
-// register.js
+// register.js (FIX: Menyimpan JWT dan Redirect ke Dashboard)
 
-// Alamat endpoint registrasi Anda
 const REGISTER_ENDPOINT = '/auth/register'; 
 
 const form = document.getElementById('register-form');
@@ -35,9 +34,16 @@ form.addEventListener('submit', async (e) => {
         if (response.ok) {
             // Registrasi Berhasil
             console.log('Registrasi Berhasil!', data);
-            alert('Registrasi Berhasil! Silakan Login.');
-            // Arahkan kembali ke halaman login
-            window.location.href = 'login.html'; 
+            
+            // --- BARU: SIMPAN TOKEN DI LOCAL STORAGE ---
+            localStorage.setItem('authToken', data.token); // Menyimpan token
+            localStorage.setItem('userName', data.name);   // Menyimpan nama
+            
+            alert('Registrasi Berhasil! Mengarahkan ke Dashboard.');
+            
+            // Arahkan ke halaman dashboard, BUKAN ke login
+            window.location.href = 'blank.html'; 
+            
         } else {
             // Registrasi Gagal
             console.error('Registrasi Gagal:', data.error);

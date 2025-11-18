@@ -2,14 +2,82 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
     <style>
         body { font-family: sans-serif; text-align: center; padding-top: 50px; }
+        .dashboard-container { 
+            max-width: 600px; 
+            margin: 0 auto; 
+            padding: 20px; 
+            border: 1px solid #ccc; 
+            border-radius: 8px; 
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
     </style>
 </head>
 <body>
-    <h1>Login Berhasil!</h1>
-    <p>Ini adalah halaman kosong (dashboard) setelah otentikasi berhasil.</p>
-    <a href="login.html">Kembali ke Login</a>
+    <div id="content" class="dashboard-container">
+        <h1>Memuat Dashboard...</h1>
+        <p>Sedang memverifikasi sesi Anda.</p>
+    </div>
+
+    <script>
+        const dashboardContent = document.getElementById('content');
+        
+        // Fungsi untuk menghapus sesi dan kembali ke login
+        function logout() {
+            localStorage.removeItem('authToken');
+            localStorage.removeItem('userName');
+            window.location.href = 'login.html';
+        }
+
+        // Fungsi utama untuk memverifikasi akses
+        async function verifyAccess() {
+            const token = localStorage.getItem('authToken');
+            const userName = localStorage.getItem('userName') || 'Pengguna';
+            
+            if (!token) {
+                // Jika tidak ada token, langsung redirect ke login
+                alert('Akses ditolak. Silakan login terlebih dahulu.');
+                return logout();
+            }
+
+            try {
+                // Panggil rute blank.html, yang sekarang dilindungi oleh middleware di Express
+                const response = await fetch('/blank.html', {
+                    method: 'GET',
+                    headers: {
+                        // Kirim token di header Authorization
+                        'Authorization': `Bearer ${token}` 
+                    }
+                });
+
+                if (response.ok) {
+                    // Verifikasi berhasil (Status 200 OK dari Express)
+                    dashboardContent.innerHTML = `
+                        <h1>Login Berhasil!</h1>
+                        <p>Ini adalah halaman Dashboard yang terproteksi.</p>
+                        <p>Selamat datang kembali, <strong>${userName}</strong>.</p>
+                        <button onclick="logout()">Logout</button>
+                    `;
+                    
+                } else {
+                    // Verifikasi gagal (Status 401 Unauthorized dari Express)
+                    const errorData = await response.json();
+                    alert(`Akses Gagal: ${errorData.error || 'Token tidak valid.'}`);
+                    logout();
+                }
+
+            } catch (error) {
+                console.error('Kesalahan Jaringan:', error);
+                alert('Gagal terhubung ke server untuk verifikasi.');
+                logout();
+            }
+        }
+
+        // Jalankan proses verifikasi saat halaman dimuat
+        verifyAccess();
+    </script>
 </body>
 </html>
