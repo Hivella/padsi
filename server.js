@@ -1,14 +1,14 @@
-// server.js (DIPERBARUI UNTUK VERCEL)
+// server.js (UTAMA & BERSIH)
 
 // --- A. DEKLARASI & IMPORT ---
 const express = require('express');
 const cors = require('cors');
-const path = require('path'); // <--- TAMBAHKAN INI
 
+// Import SEMUA route
 const userRoutes = require('./src/routes/userRoutes'); 
 const projectRoutes = require('./src/routes/projectRoutes'); 
 const authRoutes = require('./src/routes/authRoutes'); 
-require('dotenv').config();
+require('dotenv').config(); 
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -16,20 +16,14 @@ const PORT = process.env.PORT || 3000;
 
 // --- B. MIDDLEWARE GLOBAL ---
 app.use(cors());
-app.use(express.json());
+app.use(express.json()); // Mengizinkan server membaca body JSON
 
-// --- C. MENYAJIKAN FILE STATIS (BARU) ---
-// Perintahkan Express untuk menyajikan file apa pun (html, css, js) 
-// dari direktori root tempat server ini berjalan.
-app.use(express.static(path.join(__dirname)));
 
-// --- D. DEFINISI ROUTE API ---
-
-// HAPUS RUTE LAMA INI:
-// app.get('/', (req, res) => {
-//     res.send('API Express.js Berjalan!');
-// });
-// (express.static sekarang akan otomatis menyajikan index.html atau login.html)
+// --- C. DEFINISI ROUTE ---
+app.get('/', (req, res) => {
+    // Pesan ini yang Anda lihat saat Vercel berhasil
+    res.send('API Express.js Berjalan!'); 
+});
 
 // 1. Rute untuk Manajemen User (CRUD)
 app.use('/users', userRoutes); 
@@ -38,10 +32,14 @@ app.use('/users', userRoutes);
 app.use('/projects', projectRoutes);
 
 // 3. Rute untuk Otentikasi (Login/Signup)
-app.use('/auth', authRoutes); 
+app.use('/auth', authRoutes);
 
 
-// --- E. MENJALANKAN SERVER ---
+// --- D. MENJALANKAN SERVER ---
+// Baris ini hanya berjalan di lokal (npm start)
 app.listen(PORT, () => {
     console.log(`🚀 Server berjalan di http://localhost:${PORT}`);
 });
+
+// Baris ini PENTING untuk Vercel
+module.exports = app;

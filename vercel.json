@@ -8,8 +8,19 @@
   ],
   "routes": [
     {
-      "src": "/(.*)",
+      "src": "/(auth|users|projects)(.*)",
       "dest": "/server.js"
+    },
+    
+    {
+      "src": "/",
+      "dest": "/login.html"
+    },
+
+    {
+      "src": "/register",
+      "dest": "/register.html"
     }
+
   ]
 }
