@@ -20,8 +20,8 @@ app.use(express.json()); // Mengizinkan server membaca body JSON
 
 
 // --- C. DEFINISI ROUTE ---
+// Rute ini hanya untuk Vercel tahu API-nya hidup
 app.get('/', (req, res) => {
-    // Pesan ini yang Anda lihat saat Vercel berhasil
     res.send('API Express.js Berjalan!'); 
 });
 
@@ -35,11 +35,11 @@ app.use('/projects', projectRoutes);
 app.use('/auth', authRoutes);
 
 
-// --- D. MENJALANKAN SERVER ---
-// Baris ini hanya berjalan di lokal (npm start)
+// --- D. MENJALANKAN SERVER (HANYA LOKAL) ---
+// Vercel mengabaikan app.listen
 app.listen(PORT, () => {
     console.log(`🚀 Server berjalan di http://localhost:${PORT}`);
 });
 
-// Baris ini PENTING untuk Vercel
+// --- E. EKSPOR APLIKASI UNTUK VERCEL (PENTING!) ---
 module.exports = app;
