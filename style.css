@@ -50,8 +50,8 @@ body {
     left: 0;
     z-index: 1;
     
-    /* GANTI PATH INI dengan file gambar yang mencakup Ilustrasi dan Latar Belakang */
-    background: url('Background.png') no-repeat center center;
+    /* PERBAIKAN: Menggunakan path absolut untuk Background.png */
+    background: url('/Background.png') no-repeat center center;
     background-size: cover; 
 }
 

@@ -1,63 +1,63 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Laundry App</title>
-    <link rel="stylesheet" href="style.css"> 
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Laundry App</title>
+        <link rel="stylesheet" href="/style.css"> 
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="scale-container"> 
-        <div class="Login"> 
-            
-            <div class="background-elements">
-                </div>
-            
-            <form id="login-form">
-                <div class="input_filed field-username">
-                    <input type="text" id="username" placeholder="Masukkan username" required>
-                </div>
+    <div class="scale-container"> 
+        <div class="Login"> 
+            
+            <div class="background-elements">
+                </div>
+            
+            <form id="login-form">
+                <div class="input_filed field-username">
+                    <input type="text" id="username" placeholder="Masukkan username" required>
+                </div>
 
-                <div class="input_filed field-password">
-                    <input type="password" id="password" placeholder="Masukkan password" required>
-                </div>
+                <div class="input_filed field-password">
+                    <input type="password" id="password" placeholder="Masukkan password" required>
+                </div>
 
-                <a href="#" class="forget-password-text">Forget password ?</a>
-                
-                <div class="Button">
-                    <button type="submit" class="button-text">Login</button>
-                </div>
-            </form>
+                <a href="#" class="forget-password-text">Forget password ?</a>
+                
+                <div class="Button">
+                    <button type="submit" class="button-text">Login</button>
+                </div>
+            </form>
 
-            <div class="signup-footer">
-                <span class="signup-text">Don't have an account ? </span>
-                <a href="#" class="btn-signup">Sign Up</a>
-            </div>
-        </div>
-    </div>
+            <div class="signup-footer">
+                <span class="signup-text">Don't have an account ? </span>
+                <a href="#" class="btn-signup">Sign Up</a>
+            </div>
+        </div>
+    </div>
 
-    <script>
-        // Script scaling Anda (sudah benar)
-        function applyScaling() {
-            const designWidth = 400;
-            const designHeight = 800;
-            const viewportWidth = window.innerWidth;
-            const viewportHeight = window.innerHeight;
-            
-            const scaleFactor = Math.min(viewportWidth / designWidth, viewportHeight / designHeight);
-            
-            document.documentElement.style.setProperty('--scale', scaleFactor);
-            
-            const container = document.querySelector('.scale-container');
-            container.style.width = `${designWidth * scaleFactor}px`;
-            container.style.height = `${designHeight * scaleFactor}px`;
-        }
+    <script>
+        // Script scaling Anda (sudah benar)
+        function applyScaling() {
+            const designWidth = 400;
+            const designHeight = 800;
+            const viewportWidth = window.innerWidth;
+            const viewportHeight = window.innerHeight;
+            
+            const scaleFactor = Math.min(viewportWidth / designWidth, viewportHeight / designHeight);
+            
+            document.documentElement.style.setProperty('--scale', scaleFactor);
+            
+            const container = document.querySelector('.scale-container');
+            container.style.width = `${designWidth * scaleFactor}px`;
+            container.style.height = `${designHeight * scaleFactor}px`;
+        }
 
-        applyScaling();
-        window.addEventListener('resize', applyScaling);
-    </script>
-    
-    <script src="login-script.js"></script>
-</body>
+        applyScaling();
+        window.addEventListener('resize', applyScaling);
+    </script>
+    
+        <script src="/login-script.js"></script>
+    </body>
 </html>
