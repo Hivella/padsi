@@ -1,14 +1,14 @@
-// server.js (UTAMA & BERSIH)
+// server.js (DIPERBARUI UNTUK VERCEL)
 
 // --- A. DEKLARASI & IMPORT ---
 const express = require('express');
 const cors = require('cors');
+const path = require('path'); // <--- TAMBAHKAN INI
 
-// Import SEMUA route HANYA SEKALI
 const userRoutes = require('./src/routes/userRoutes'); 
 const projectRoutes = require('./src/routes/projectRoutes'); 
-const authRoutes = require('./src/routes/authRoutes'); // BARU: Import rute otentikasi
-require('dotenv').config(); // Pastikan dotenv dimuat!
+const authRoutes = require('./src/routes/authRoutes'); 
+require('dotenv').config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -16,13 +16,20 @@ const PORT = process.env.PORT || 3000;
 
 // --- B. MIDDLEWARE GLOBAL ---
 app.use(cors());
-app.use(express.json()); // Mengizinkan server membaca body JSON
+app.use(express.json());
 
+// --- C. MENYAJIKAN FILE STATIS (BARU) ---
+// Perintahkan Express untuk menyajikan file apa pun (html, css, js) 
+// dari direktori root tempat server ini berjalan.
+app.use(express.static(path.join(__dirname)));
 
-// --- C. DEFINISI ROUTE ---
-app.get('/', (req, res) => {
-    res.send('API Express.js Berjalan!');
-});
+// --- D. DEFINISI ROUTE API ---
+
+// HAPUS RUTE LAMA INI:
+// app.get('/', (req, res) => {
+//     res.send('API Express.js Berjalan!');
+// });
+// (express.static sekarang akan otomatis menyajikan index.html atau login.html)
 
 // 1. Rute untuk Manajemen User (CRUD)
 app.use('/users', userRoutes); 
@@ -31,10 +38,10 @@ app.use('/users', userRoutes);
 app.use('/projects', projectRoutes);
 
 // 3. Rute untuk Otentikasi (Login/Signup)
-app.use('/auth', authRoutes); // BARU: Menangani endpoint seperti /auth/login
+app.use('/auth', authRoutes); 
 
 
-// --- D. MENJALANKAN SERVER ---
+// --- E. MENJALANKAN SERVER ---
 app.listen(PORT, () => {
     console.log(`🚀 Server berjalan di http://localhost:${PORT}`);
 });

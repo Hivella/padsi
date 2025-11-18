@@ -7,15 +7,9 @@
     }
   ],
   "routes": [
-    
     {
-      "src": "/(auth|users|projects)(.*)",
+      "src": "/(.*)",
       "dest": "/server.js"
-    },
-    
-    {
-      "src": "/",
-      "dest": "/login.html"
     }
   ]
 }
