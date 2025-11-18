@@ -1,7 +1,7 @@
-// src/controllers/authController.js
+// src/controllers/authController.js (FIX: Detailed Error Logging)
 
 const prisma = require('../db/prisma');
-const bcrypt = require('bcryptjs'); // <--- 1. IMPORT BCRYPTJS
+const bcrypt = require('bcryptjs');
 
 exports.login = async (req, res) => {
     const { username, password } = req.body;
@@ -17,17 +17,13 @@ exports.login = async (req, res) => {
         });
 
         if (!user) {
-            // User tidak ditemukan (Email salah)
-            // JANGAN beri tahu emailnya yang salah, tetap bilang "Kredensial tidak valid"
             return res.status(401).json({ error: 'Kredensial tidak valid (Email/Password salah).' });
         }
         
-        // 2. BANDINGKAN PASSWORD (YANG ASLI)
-        // Kita bandingkan password yang diinput (password) dengan hash di database (user.password)
+        // 2. BANDINGKAN PASSWORD
         const isMatch = await bcrypt.compare(password, user.password);
 
         if (!isMatch) {
-            // Jika password salah
             return res.status(401).json({ error: 'Kredensial tidak valid (Email/Password salah).' });
         }
 
@@ -39,8 +35,9 @@ exports.login = async (req, res) => {
         });
 
     } catch (error) {
+        // Log error secara detail di konsol Vercel
         console.error('Error saat proses login:', error);
-        res.status(500).json({ error: 'Terjadi kesalahan server saat login.' });
+        res.status(500).json({ error: 'Terjadi kesalahan server saat login. Cek logs Vercel.' });
     }
 };
 
@@ -52,8 +49,7 @@ exports.register = async (req, res) => {
     }
 
     try {
-        // 1. HASH PASSWORD (Wajib)
-        // Kita "menggarami" (salt) passwordnya agar lebih aman
+        // 1. HASH PASSWORD
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(password, salt);
 
@@ -61,15 +57,15 @@ exports.register = async (req, res) => {
         const userData = {
             email: email,
             name: name,
-            password: hashedPassword, // <--- 2. SIMPAN PASSWORD YANG SUDAH DI-HASH
+            password: hashedPassword, 
         };
 
-        // 3. Buat User Baru di Database Neon
+        // 3. Buat User Baru
         const newUser = await prisma.user.create({
             data: userData,
         });
 
-        // 4. Respon Sukses (Jangan kirim password kembali)
+        // 4. Respon Sukses
         res.status(201).json({ 
             message: 'Registrasi berhasil!', 
             userId: newUser.id,
@@ -77,11 +73,17 @@ exports.register = async (req, res) => {
         });
 
     } catch (error) {
-        // Pengecekan Error: Jika email sudah ada (Unique Constraint Violation)
+        // Pengecekan Error Prisma: Unique Constraint Violation
         if (error.code === 'P2002') {
             return res.status(409).json({ error: 'Email ini sudah terdaftar. Silakan gunakan yang lain.' });
         }
+        
+        // LOG ERROR PRISMA LAINNYA
         console.error('Error saat proses registrasi:', error);
-        res.status(500).json({ error: 'Terjadi kesalahan server saat registrasi.' });
+        // Penting: Kirim pesan error yang lebih spesifik untuk diagnosis
+        res.status(500).json({ 
+            error: `Registrasi gagal. Kemungkinan database down/timeout. Error code: ${error.code || 'UNKNOWN'}`,
+            detail: error.message
+        });
     }
 };
