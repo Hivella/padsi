@@ -1,4 +1,4 @@
-// login-script.js
+// login-script.js (FIX: Redirect Path Absolut)
 
 // Alamat endpoint login Anda
 const LOGIN_ENDPOINT = '/auth/login';
@@ -7,6 +7,11 @@ const form = document.getElementById('login-form');
 const usernameInput = document.getElementById('username');
 const passwordInput = document.getElementById('password');
 
+// Tangkap element signup button, karena kita hapus script scaling di login.html
+const signupButton = document.querySelector('.btn-signup');
+
+
+// --- Event Listener Utama ---
 form.addEventListener('submit', async (e) => {
     e.preventDefault(); 
 
@@ -14,6 +19,7 @@ form.addEventListener('submit', async (e) => {
     const password = passwordInput.value;
 
     console.log('Mengirim permintaan login...');
+    // Anda bisa menambahkan UI feedback di sini (misalnya, menonaktifkan tombol)
 
     try {
         const response = await fetch(LOGIN_ENDPOINT, {
@@ -32,25 +38,25 @@ form.addEventListener('submit', async (e) => {
         if (response.ok) {
             // Login Berhasil
             console.log('Login Berhasil!', data);
-            alert(`Login Berhasil! Selamat datang, ${data.name}.`);
-            // Arahkan ke halaman dashboard (saat ini blank.html)
-            window.location.href = 'blank.html'; 
+            alert(`Login Berhasil! Selamat datang, ${data.name || 'Pengguna'}.`);
+            
+            // FIX PENTING: Arahkan ke halaman dashboard menggunakan path ABSOLUT
+            window.location.href = '/blank.html'; 
         } else {
             // Login Gagal
             console.error('Login Gagal:', data.error);
             alert(`Login Gagal: ${data.error || 'Terjadi kesalahan.'}`);
         }
     } catch (error) {
-        console.error('Kesalahan Jaringan:', error);
-        alert('Gagal terhubung ke server API. Pastikan server berjalan.');
+        console.error('Kesalahan Jaringan/Server:', error);
+        alert('Gagal terhubung ke server API atau terjadi kesalahan jaringan.');
     }
 });
 
-// Tambahkan navigasi ke Halaman Register
-const signupButton = document.querySelector('.btn-signup');
+// Tambahkan navigasi ke Halaman Register (JANGAN LUPA)
 if (signupButton) {
     signupButton.addEventListener('click', (e) => {
         e.preventDefault();
-        window.location.href = 'register.html';
+        window.location.href = '/register.html'; // Gunakan path absolut
     });
 }
