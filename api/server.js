@@ -1,12 +1,12 @@
-// api/server.js (FINAL & KOREKSI PATH)
+// api/server.js (FINAL FIX: EXPRESS STATIC HANDLING)
 
 // --- A. DEKLARASI & IMPORT ---
 const express = require('express');
 const cors = require('cors');
+const path = require('path'); // PENTING: Untuk penanganan path statis
 
-// PATH DIUBAH: DARI './src/routes' MENJADI '../src/routes'
 const userRoutes = require('../src/routes/userRoutes'); 
-const projectRoutes = require('./../src/routes/projectRoutes'); 
+const projectRoutes = require('../src/routes/projectRoutes'); 
 const authRoutes = require('../src/routes/authRoutes'); 
 require('dotenv').config(); 
 
@@ -18,23 +18,32 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
 
+// --- C. MENYAJIKAN FILE STATIS (SOLUSI VERCEL) ---
+// Tentukan root directory sebagai satu tingkat di atas folder 'api'
+const rootDir = path.join(__dirname, '..');
 
-// --- C. DEFINISI ROUTE ---
+// Express akan mencari file statis (CSS/JS/PNG) di root directory
+app.use(express.static(rootDir));
+
+
+// --- D. DEFINISI ROUTE ---
+// 1. Rute Halaman Utama: Express akan menyajikan login.html sebagai respons terhadap /
 app.get('/', (req, res) => {
-    // Pesan ini hanya untuk tes koneksi fungsi
-    res.send('API Express.js Berjalan!'); 
+    // Karena kita sudah menambahkan express.static(rootDir), 
+    // Express akan mencari index.html secara default.
+    // Jika tidak ada index.html, kita arahkan ke login.html.
+    res.sendFile('login.html', { root: rootDir });
 });
 
-// Rute API
+// 2. Rute API
 app.use('/users', userRoutes); 
 app.use('/projects', projectRoutes);
 app.use('/auth', authRoutes);
 
 
-// --- D. MENJALANKAN SERVER (HANYA LOKAL) ---
+// --- E. MENJALANKAN SERVER ---
 app.listen(PORT, () => {
     console.log(`🚀 Server berjalan di http://localhost:${PORT}`);
 });
 
-// --- E. EKSPOR APLIKASI UNTUK VERCEL (PENTING!) ---
 module.exports = app;
